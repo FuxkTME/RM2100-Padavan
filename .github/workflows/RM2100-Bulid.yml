@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -28,26 +28,11 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot \
-        cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
+        cpio git gettext automake autopoint texinfo build-essential help2man \
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
       run: |
-        git clone --depth=1 https://github.com/vb1980/Padavan-KVR.git /opt/rt-n56u
-  
-        rm /opt/rt-n56u/trunk/versions.inc
-        wget -P /opt/rt-n56u/trunk/ https://raw.githubusercontent.com/vb1980/Padavan-KVR/main/trunk/versions.inc
-        
-        
-        rm /opt/rt-n56u/trunk/user/zerotier/*
-        
-        wget -P /opt/rt-n56u/trunk/user/zerotier/ https://raw.githubusercontent.com/keke1023/Padavan/main/trunk/user/zerotier/0001-fix-makefile.patch
-        wget -P /opt/rt-n56u/trunk/user/zerotier/ https://raw.githubusercontent.com/keke1023/Padavan/main/trunk/user/zerotier/0006-gcc10.patch
-        wget -P /opt/rt-n56u/trunk/user/zerotier/ https://raw.githubusercontent.com/keke1023/Padavan/main/trunk/user/zerotier/0007-add-cerrno-header-for-str-errno.patch
-        wget -P /opt/rt-n56u/trunk/user/zerotier/ https://raw.githubusercontent.com/keke1023/Padavan/main/trunk/user/zerotier/0008-fix-compilation-for-arm_cortex-a7-neon.patch 
-        wget -P /opt/rt-n56u/trunk/user/zerotier/ https://raw.githubusercontent.com/keke1023/Padavan/main/trunk/user/zerotier/Makefile
-        wget -P /opt/rt-n56u/trunk/user/zerotier/ https://github.com/keke1023/Padavan/raw/main/trunk/user/zerotier/ZeroTierOne-1.8.4.tar.gz
-        wget -P /opt/rt-n56u/trunk/user/zerotier/ https://raw.githubusercontent.com/keke1023/Padavan/main/trunk/user/zerotier/zerotier.sh
-      
+        git clone --depth=1 https://github.com/vb1980/Padavan-KVR.git /opt/rt-n56u  
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
